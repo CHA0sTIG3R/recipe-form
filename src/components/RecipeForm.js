@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, Form, Formik, useField } from 'formik';
+import * as Yup from 'yup';
 
 const MyTextArea = ({ label, ...props }) => {
     const [field, meta] = useField(props);
@@ -25,9 +26,16 @@ function RecipeForm() {
                     ingredients: '',
                     directions: '',
                 }}
+                validationSchema={Yup.object({
+                    name: Yup.string().required('Required'),
+                    type: Yup.string().oneOf(['Pastry','Culinary'], 'Invalid Recipe Type')
+                    .required('Required'),
+                    ingredients: Yup.string().required('Required'),
+                    directions: Yup.string().required('Required'),
+                })}
                 onSubmit = {values => {
-                    values.ingredients = values.ingredients.split(",");
-                    values.directions = values.directions.split(",")
+                    values.ingredients = values.ingredients.split(',');
+                    values.directions = values.directions.split(',')
                     console.log(JSON.stringify(values, null, 2));
                 }}>
                 <Form>
@@ -38,7 +46,7 @@ function RecipeForm() {
                     />
 
                     <label>Recipe Type</label>
-                    <Field label='Type' name='type' as="select" htmlFor='type'>
+                    <Field label='Type' name='type' as='select' htmlFor='type'>
                         <option value=''>Select Recipe Type</option>
                         <option value='Pastry'>Pastry</option>
                         <option value='Culinary'>Culinary</option>
