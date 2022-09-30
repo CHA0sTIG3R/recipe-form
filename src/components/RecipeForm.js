@@ -18,8 +18,8 @@ const MyTextArea = ({ label, ...props }) => {
     );
 };
 
-function postRecipe(name, type, ingredients, directions){
-    const Full_URL = `${baseURL}?name=${name}&type=${type}&ingredients=${ingredients}&directions=${directions}` ;
+function postRecipe(name, type, description, ingredients, directions){
+    const Full_URL = `${baseURL}?name=${name}&type=${type}&description=${description}&ingredients=${ingredients}&directions=${directions}` ;
     axios.post(Full_URL).then(response => {
         console.log(response)
     });
@@ -33,6 +33,7 @@ function RecipeForm() {
                 initialValues = {{
                     name: '',
                     type: '',
+                    description: '',
                     ingredients: '',
                     directions: '',
                 }}
@@ -62,6 +63,11 @@ function RecipeForm() {
                         <option value='Pastry'>Pastry</option>
                         <option value='Culinary'>Culinary</option>
                     </Field>
+
+                    <MyTextArea 
+                        label='Description'
+                        name='description'
+                    />
 
                     <MyTextArea 
                         label='Ingredients'
