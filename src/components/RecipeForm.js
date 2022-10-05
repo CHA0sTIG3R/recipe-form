@@ -1,4 +1,5 @@
-import { Field, Form, Formik, useField } from 'formik';
+import React from 'react';
+import { Field, Form, Formik, useField} from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 
@@ -17,10 +18,34 @@ const MyTextArea = ({ label, ...props }) => {
     );
 };
 
-function postRecipe(name, type, description, ingredients, directions){
-    const Full_URL = `${baseURL}?name=${name}&type=${type}&description=${description}&ingredients=${ingredients}&directions=${directions}` ;
-    axios.post(Full_URL).then(response => {
+function imageUploader(props){
+    const {field, form} = props;
+
+    const handleChange = async (e) => {
+        const img = e.currentTarget.files[0];
+        form.setFieldValue(field.name, img);
+    };
+
+    return (
+        <div>
+            <input type="file" onChange={(e) => handleChange(e)} />
+        </div>
+    );
+}
+
+function postRecipe(data){
+    const formData = new FormData();
+    Object.keys(data).forEach(key => formData.append(key, data[key]));
+    axios({
+        method: 'post',
+        url: baseURL,
+        data: formData,
+    })
+    .then(response => {
         console.log(response)
+    })
+    .catch(error => {
+        console.log(error)
     });
 }
 
@@ -32,6 +57,7 @@ function RecipeForm() {
                 initialValues = {{
                     name: '',
                     type: '',
+                    image: null,
                     description: '',
                     ingredients: '',
                     directions: '',
@@ -40,14 +66,16 @@ function RecipeForm() {
                     name: Yup.string().required('Required'),
                     type: Yup.string().oneOf(['Pastry','Culinary'], 'Invalid Recipe Type')
                     .required('Required'),
+                    image: Yup.mixed().required('You gotta submit a file'),
+                    description: Yup.string().required('Required'),
                     ingredients: Yup.string().required('Required'),
                     directions: Yup.string().required('Required'),
                 })}
                 onSubmit = {values => {
-                    values.ingredients = values.ingredients.trim().split(',');
-                    values.directions = values.directions.split(',')
+                    values.ingredients = values.ingredients.split(/\n/);
+                    values.directions = values.directions.split(/\n/)
                     console.log(JSON.stringify(values, null, 2));
-                    postRecipe(values.name, values.type, values.ingredients, values.directions);
+                    postRecipe(values);
                 }}>
                 <Form>
                     <label>Recipe Name</label>
@@ -62,6 +90,9 @@ function RecipeForm() {
                         <option value='Pastry'>Pastry</option>
                         <option value='Culinary'>Culinary</option>
                     </Field>
+
+                    <label>Recipe Image</label>
+                    <Field name='image' component={imageUploader} />
 
                     <MyTextArea 
                         label='Description'
