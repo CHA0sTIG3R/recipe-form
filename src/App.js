@@ -1,11 +1,14 @@
 import './App.css';
-import RecipeForm from './components/RecipeForm';
+import {BrowserRouter} from 'react-router-dom';
+import Pages from './Pages/Pages';
 
 function App() {
   return (
-    <div className="App">
-      <RecipeForm />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Pages />
+      </div>
+    </BrowserRouter>
   );
 }
 
