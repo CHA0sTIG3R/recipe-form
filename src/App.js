@@ -1,11 +1,12 @@
-import './App.css';
 import {BrowserRouter} from 'react-router-dom';
+import NavBar from './components/NavBar';
 import Pages from './Pages/Pages';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <NavBar />
+      <div className="App bg-light">
         <Pages />
       </div>
     </BrowserRouter>

@@ -8,9 +8,9 @@ function Home() {
     <div>
         <h1>Recipe Manager</h1>
         <p>Create, Update and Delete your recipes</p>
-        <Button variant='outline-success' onClick={(e) => {
+        <Button variant='outline-secondary' onClick={(e) => {
             e.preventDefault();
-            navigate('/all-recipes');
+            navigate('/manager');
         }} >Manage Recipes</Button>
     </div>
   )

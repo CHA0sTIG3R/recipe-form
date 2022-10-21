@@ -6,12 +6,14 @@ import Recipes from './Recipes';
 
 function Pages() {
   return (
-    <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/all-recipes' element={<Recipes/>} />
-        <Route path='/add' element={<RecipeForm/>} />
-        <Route path='/edit/:id' element={<RecipeForm/>} />
-    </Routes>
+    <div className='container pt-4 pb-4'>
+      <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/manager' element={<Recipes/>} />
+          <Route path='/manager/add' element={<RecipeForm/>} />
+          <Route path='/manager/edit/:id' element={<RecipeForm/>} />
+      </Routes>
+    </div>
   )
 }
 
