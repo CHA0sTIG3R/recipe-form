@@ -2,6 +2,8 @@
   "name": "recipe-form",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
+  "main": "./public/electron.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -21,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3300 && electronmon .\""
   },
   "eslintConfig": {
     "extends": [
@@ -31,14 +34,24 @@
   },
   "browserslist": {
     "production": [
+      "last 1 electron version",
       ">0.2%",
       "not dead",
       "not op_mini all"
     ],
     "development": [
+      "last 1 electron version",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "electron": "^23.0.0",
+    "electron-builder": "^23.6.0",
+    "electronmon": "^2.0.2",
+    "wait-on": "^7.0.1"
   }
 }
