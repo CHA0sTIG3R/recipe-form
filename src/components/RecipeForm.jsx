@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
-const baseURL = 'https://puffpastrycrack.uk.r.appspot.com/';
+const baseURL = 'https://backend-dot-puffpastrycrack.uk.r.appspot.com';
 
 const MyTextArea = ({ label, ...props }) => {
     const [field, meta] = useField(props);

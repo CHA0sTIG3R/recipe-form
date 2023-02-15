@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Alert, Button} from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 
-const baseURL = 'https://puffpastrycrack.uk.r.appspot.com/';
+const baseURL = 'https://backend-dot-puffpastrycrack.uk.r.appspot.com';
 
 function Recipes() {
 
